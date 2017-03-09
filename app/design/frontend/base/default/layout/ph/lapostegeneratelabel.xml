@@ -7,6 +7,9 @@
                 <template>page/1column.phtml</template>
             </action>
         </reference>
+        <reference name="head">
+            <action method="setTitle" translate="title"><title>Download your label</title></action>
+        </reference>
         <reference name="content">
             <block name="contet_view" as="content_view" type="core/template" template="ph/laposte-generatelabel/view.phtml">
                 <block name="cms_describe" as="cms_describe" type="cms/block">

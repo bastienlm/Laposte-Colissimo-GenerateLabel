@@ -39,7 +39,6 @@ class PH2M_PhLaposteGenerateLabel_PrintlabelpdfController extends Mage_Core_Cont
         $orderId = $this->getRequest()->getParam('order');
         Mage::register('order_id', $orderId);
         $this->loadLayout();
-        $this->getLayout()->getBlock('head')->setTitle($this->__('Download your label'));
         $this->renderLayout();
     }
 }
