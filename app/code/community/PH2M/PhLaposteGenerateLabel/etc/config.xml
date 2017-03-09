@@ -53,4 +53,15 @@
             </modules>
         </translate>
     </frontend>
+    <adminhtml>
+        <translate>
+            <modules>
+                <PH2M_PhLaposteGenerateLabel>
+                    <files>
+                        <default>PH2M_PhLaposteGenerateLabel.csv</default>
+                    </files>
+                </PH2M_PhLaposteGenerateLabel>
+            </modules>
+        </translate>
+    </adminhtml>
 </config>

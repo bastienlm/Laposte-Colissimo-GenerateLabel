@@ -4,7 +4,7 @@
         <general>
             <groups>
                 <laposte_returnlabel translate="label">
-                    <label>Management of Laposte generate label for return product</label>
+                    <label>La Poste generate label for RMA</label>
                     <sort_order>100</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
@@ -99,7 +99,7 @@
                             <show_in_store>1</show_in_store>
                         </phone_number>
                         <email translate="label">
-                            <label>Email</label>
+                            <label>Email address</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>100</sort_order>
                             <show_in_default>1</show_in_default>
