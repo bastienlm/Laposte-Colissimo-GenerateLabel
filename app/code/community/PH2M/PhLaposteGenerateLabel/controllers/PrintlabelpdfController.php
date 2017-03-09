@@ -28,7 +28,7 @@ class PH2M_PhLaposteGenerateLabel_PrintlabelpdfController extends Mage_Core_Cont
 
         if(strpos($response, '<soap:Fault>') !== false || strpos($response, '<type>ERROR</type>')) {
             Mage::log($response, Zend_log::ALERT);
-            Mage::getSingleton('core/session')->addError($this->__('An error has occurred'));
+            Mage::getSingleton('core/session')->addError($this->__('An error has occurred.'));
             return $this->_redirectReferer();
         }
         return $this->_prepareDownloadResponse('etiquette.pdf', $response);
@@ -39,7 +39,6 @@ class PH2M_PhLaposteGenerateLabel_PrintlabelpdfController extends Mage_Core_Cont
         $orderId = $this->getRequest()->getParam('order');
         Mage::register('order_id', $orderId);
         $this->loadLayout();
-        $this->getLayout()->getBlock('head')->setTitle($this->__('Download your label'));
         $this->renderLayout();
     }
 }
