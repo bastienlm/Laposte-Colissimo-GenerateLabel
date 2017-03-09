@@ -28,7 +28,7 @@ class PH2M_PhLaposteGenerateLabel_PrintlabelpdfController extends Mage_Core_Cont
 
         if(strpos($response, '<soap:Fault>') !== false || strpos($response, '<type>ERROR</type>')) {
             Mage::log($response, Zend_log::ALERT);
-            Mage::getSingleton('core/session')->addError($this->__('An error has occurred'));
+            Mage::getSingleton('core/session')->addError($this->__('An error has occurred.'));
             return $this->_redirectReferer();
         }
         return $this->_prepareDownloadResponse('etiquette.pdf', $response);
