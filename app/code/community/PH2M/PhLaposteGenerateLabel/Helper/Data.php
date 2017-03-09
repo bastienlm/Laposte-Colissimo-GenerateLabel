@@ -208,8 +208,6 @@ class PH2M_PhLaposteGenerateLabel_Helper_Data extends Mage_Core_Helper_Abstract 
 
         // Convert Xml data to correct format
         $xmlData = $this->_label->asNiceXml();
-        Mage::log($xmlData);
-//        die('...');
 
         $body       = '<?xml version="1.0" encoding="utf-8"?>
                             <x:Envelope xmlns:x="http://schemas.xmlsoap.org/soap/envelope/" xmlns:sls="http://sls.ws.coliposte.fr">
