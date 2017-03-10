@@ -2,25 +2,27 @@
 <layout>
     <lapostegeneratelabel_printlabelpdf_view>
         <label>Print label page</label>
+        <update handle="customer_account"/>
         <reference name="root">
-            <action method="setTemplate">
-                <template>page/1column.phtml</template>
-            </action>
+            <action method="setHeaderTitle" translate="title" module="customer"><title>Print label page</title></action>
         </reference>
-        <reference name="head">
-            <action method="setTitle" translate="title"><title>Download your label</title></action>
-        </reference>
-        <reference name="content">
-            <block name="contet_view" as="content_view" type="core/template" template="ph/laposte-generatelabel/view.phtml">
-                <block name="cms_describe" as="cms_describe" type="cms/block">
+        <reference name="my.account.wrapper">
+            <block type="lapostegeneratelabel/sales_order_view" name="contet_view" as="content_view"  template="ph/laposte-generatelabel/view.phtml">
+                <block name="cms_describe_first_method" as="cms_describe_first_method" type="cms/block">
                     <action method="setBlockId"><block_id>laposte_generatelabel_describe</block_id></action>
+                </block>
+                <block name="cms_describe_second_method" as="cms_describe_second_method" type="cms/block">
+                    <action method="setBlockId"><block_id>laposte_generatelabel_describe_manual</block_id></action>
                 </block>
             </block>
         </reference>
-    </lapostegeneratelabel_printlabelpdf_view>
-    <sales_order_view>
-        <reference name="my.account.wrapper">
-            <block name="generate_label_button" as="generate_label_button" type="lapostegeneratelabel/sales_order_view" template="ph/laposte-generatelabel/button.phtml" />
+        <reference name="left">
+            <action method="unsetChild"><name>left.permanent.callout</name></action>
         </reference>
-    </sales_order_view>
+    </lapostegeneratelabel_printlabelpdf_view>
+    <customer_account>
+        <reference name="customer_account_navigation">
+            <action method="addLink" translate="label" module="lapostegeneratelabel"><name>product_return</name><path>lapostegeneratelabel/printlabelpdf/view</path><label>Return product</label></action>
+        </reference>
+    </customer_account>
 </layout>

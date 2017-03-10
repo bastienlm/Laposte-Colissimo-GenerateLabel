@@ -19,27 +19,23 @@
 class PH2M_PhLaposteGenerateLabel_Block_Sales_Order_View extends Mage_Core_Block_Template {
 
     /**
-     * Retrieve current order model instance
+     * Return all order complete in FR
      *
-     * @return Mage_Sales_Model_Order
+     * @return Mage_Core_Model_Resource_Db_Collection_Abstract
      */
-    public function getOrder()
-    {
-        return Mage::registry('current_order');
-    }
+    public function listOfOrderAvailable() {
+
+        $orders = Mage::getResourceModel('sales/order_collection')
+            ->addAttributeToFilter('state', Mage_Sales_Model_Order::STATE_COMPLETE)
+            ->addAttributeToFilter('customer_id', Mage::getSingleton('customer/session')->getId())
+            ->addAttributeToFilter('country_id', array('in' => Mage::helper('lapostegeneratelabel')->countryAvailableForProductReturn()))
+            ->join(array('ship_address' => 'order_address'), 'main_table.shipping_address_id = ship_address.entity_id', 'country_id')
+            ;
 
 
-    /**
-     * @return bool
-     */
-    public function canShowButton() {
-        if($this->getOrder()->getStatus() == 'complete'
-            && $this->getOrder()->getShippingAddress()->getCountryId() == 'FR'
-        && $this->getOrder()->getCustomerId() == Mage::getSingleton('customer/session')->getId()) {
-            return true;
-        } else {
-            return false;
-        }
+        return $orders;
+
+
     }
 
 }

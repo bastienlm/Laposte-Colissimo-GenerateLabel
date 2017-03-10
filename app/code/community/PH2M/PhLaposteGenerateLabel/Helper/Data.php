@@ -198,7 +198,7 @@ class PH2M_PhLaposteGenerateLabel_Helper_Data extends Mage_Core_Helper_Abstract 
         }
         $customerShippingAddress = $order->getShippingAddress();
 
-        if($customerShippingAddress->getCountryId() != 'FR') {
+        if(!in_array($customerShippingAddress->getCountryId(), Mage::helper('lapostegeneratelabel')->countryAvailableForProductReturn())) {
             return false;
         }
 
@@ -250,13 +250,28 @@ class PH2M_PhLaposteGenerateLabel_Helper_Data extends Mage_Core_Helper_Abstract 
      * @return string
      */
     public function getDownloadControllerUrl() {
-        return Mage::getUrl('phlaposte/printlabelpdf/download/');
+        return Mage::getUrl('lapostegeneratelabel/printlabelpdf/download/');
     }
 
     /**
      * @return string
      */
     public function getViewControllerUrl() {
-        return Mage::getUrl('phlaposte/printlabelpdf/view/');
+        return Mage::getUrl('lapostegeneratelabel/printlabelpdf/view/');
+    }
+
+
+    public function getDownloadManualControllerUrl() {
+        return Mage::getUrl('lapostegeneratelabel/printlabelpdf/downloadmanual/');
+    }
+
+    /**
+     * Return list of all country available for product return
+     *
+     * @return array
+     */
+    public function countryAvailableForProductReturn() {
+        $list = Mage::getStoreConfig('general/laposte_returnlabel/country_available');
+        return explode(',', $list);
     }
 }

@@ -32,7 +32,7 @@
                 <use>standard</use>
                 <args>
                     <module>PH2M_PhLaposteGenerateLabel</module>
-                    <frontName>phlaposte</frontName>
+                    <frontName>lapostegeneratelabel</frontName>
                 </args>
             </lapostegeneratelabel>
         </routers>
@@ -64,4 +64,11 @@
             </modules>
         </translate>
     </adminhtml>
+    <default>
+        <general>
+            <laposte_returnlabel>
+                <country_available>FR,DE,AT,BE,ES,FI,FR,IE,IT,LU,NL,PL,CZ,GB,SK,SI</country_available>
+            </laposte_returnlabel>
+        </general>
+    </default>
 </config>
