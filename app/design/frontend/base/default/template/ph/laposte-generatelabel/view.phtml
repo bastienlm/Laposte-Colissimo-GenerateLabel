@@ -1,55 +1,19 @@
-<?php
-/**
- * PH2M_PhLaposteGenerateLabel
- *
- * NOTICE OF LICENSE
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- *
- * @category   LaposteGenerateLabel
- * @copyright  Copyright (c) 2017 PH2M SARL
- * @author     PH2M SARL <contact@ph2m.com> : http://www.ph2m.com/
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
- * @var $this PH2M_PhLaposteGenerateLabel_Block_Sales_Order_View
- */
-
-?>
-<h1><?php echo $this->__('Return product') ?></h1>
-<?php $_orders = $this->listOfOrderAvailable(); ?>
-<?php if($_orders->getSize()): ?>
-    <?php echo $this->getChildHtml('cms_describe_first_method'); ?>
-    <div class="dl-button">
-        <form action="<?php echo $this->helper('lapostegeneratelabel')->getDownloadControllerUrl() ?>" method="post">
-            <select name="order_id">
-                <?php foreach ($_orders as $_order): ?>
-                    <option value="<?php echo $_order->getId() ?>"><?php echo $this->__('Order #') . ' ' . $_order->getIncrementId() ?></option>
-                <?php endforeach; ?>
-            </select>
-            <button class="button" type="submit">
-                    <span>
-                        <span><?php echo $this->__('Download label') ?></span>
-                    </span>
-            </button>
-            <p><?php echo '(' . $this->__('pdf format') . ')'; ?></p>
-        </form>
-    </div>
-<?php else: ?>
-    <p><?php echo $this->__('Sorry, but for return a product you need a complete order in France') ?></p>
-<?php endif; ?>
-<?php $_downloadManualContent = $this->getChildHtml('cms_describe_second_method'); ?>
-<?php if($_downloadManualContent): ?>
-    <div class="manual-download">
-        <?php echo $this->getChildHtml('cms_describe_second_method'); ?>
-        <a href="<?php echo $this->helper('lapostegeneratelabel')->getDownloadManualControllerUrl() ?>">
+<div class="dl-button">
+        <a href="<?php echo $this->helper('lapostegeneratelabel')->getReturnForExchangeControllerUrl() ?>">
             <button class="button">
-                    <span>
-                        <span><?php echo $this->__('Download Refund manual') ?></span>
-                    </span>
-            </button></a>
-        <p><?php echo '(' . $this->__('pdf format') . ')'; ?></p>
+                <span>
+                    <span><?php echo $this->__('Return for exchange') ?></span>
+                </span>
+            </button>
+        </a>
+</div>
+<div class="manual-download">
+    <a href="<?php echo $this->helper('lapostegeneratelabel')->getDownloadManualControllerUrl() ?>" target="_blank">
+        <button class="button">
+                <span>
+                    <span><?php echo $this->__('Return for refund') ?></span>
+                </span>
+        </button>
+    </a>
+</div>
 
-    </div>
-<?php endif; ?>

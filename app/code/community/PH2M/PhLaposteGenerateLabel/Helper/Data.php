@@ -11,7 +11,7 @@
  *
  * @category   LaposteGenerateLabel
  * @copyright  Copyright (c) 2017 PH2M SARL
- * @author     PH2M | Bastien Lamamy (bastienlm) bastien-lamamy.com/
+ * @author     PH2M | Bastien Lamamy (bastienlm)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -77,7 +77,7 @@ class PH2M_PhLaposteGenerateLabel_Helper_Data extends Mage_Core_Helper_Abstract 
      * @return Mage_Core_Model_Abstract|PH2M_PhLaposteGenerateLabel_Model_Outputformat
      */
     public function getOutputFormat() {
-        $output =  Mage::getSingleton('lapostegeneratelabel/outputformat');
+        $output =  Mage::getSingleton('phlapostegeneratelabel/outputformat');
         $output->setX('0');
         $output->setY('0');
         $output->setOutputPrintingType('PDF_A4_300dpi');
@@ -95,11 +95,16 @@ class PH2M_PhLaposteGenerateLabel_Helper_Data extends Mage_Core_Helper_Abstract 
     public function getLetter($orderId, $customerShippingAddress) {
         /** @var $items Mage_Sales_Model_Order_Item */
 
-        $order  = Mage::getModel('sales/order')->load($orderId);
-        $letter = Mage::getSingleton('lapostegeneratelabel/letter');
+        $order          = Mage::getModel('sales/order')->load($orderId);
+        $letter         = Mage::getSingleton('phlapostegeneratelabel/letter');
+        $productCode    = 'CORE';
 
-        $service = Mage::getSingleton('lapostegeneratelabel/letter_service');
-        $service->setProductCode('CORE');
+        if($customerShippingAddress->getCountryId() != 'FR') {
+            $productCode = 'CORI';
+        }
+
+        $service = Mage::getSingleton('phlapostegeneratelabel/letter_service');
+        $service->setProductCode($productCode);
         $service->setDepositDate(Mage::getModel('core/date')->date('Y-m-d'));
         $service->setMailBoxPicking('false');
         $service->setTransportationAmount(0);
@@ -113,18 +118,19 @@ class PH2M_PhLaposteGenerateLabel_Helper_Data extends Mage_Core_Helper_Abstract 
         foreach ($items as $item) {
             $weight += $item->getWeight();
         }
-        $parcel = Mage::getSingleton('lapostegeneratelabel/letter_parcel');
+        $parcel = Mage::getSingleton('phlapostegeneratelabel/letter_parcel');
         $parcel->setWeight($weight);
         $parcel->setNonMachinable('false');
         $parcel->setInstructions();
         $parcel->setPickupLocationId();
 
-        $customsDeclarations = Mage::getSingleton('lapostegeneratelabel/letter_customsdelcarations');
+        $customsDeclarations = Mage::getSingleton('phlapostegeneratelabel/letter_customsdelcarations');
         $customsDeclarations->setIncludeCustomsDeclarations('false');
         $customsDeclarations->setContents();
 
-        $sender = Mage::getSingleton('lapostegeneratelabel/letter_sender');
+        $sender = Mage::getSingleton('phlapostegeneratelabel/letter_sender');
         $sender->setSenderParcelRef();
+
         $sender->setAddress(
             array(
                 'companyName'       => $customerShippingAddress->getCompany(),
@@ -148,10 +154,13 @@ class PH2M_PhLaposteGenerateLabel_Helper_Data extends Mage_Core_Helper_Abstract 
         );
 
 
-        $addressee = Mage::getSingleton('lapostegeneratelabel/letter_addressee');
+        $addressee = Mage::getSingleton('phlapostegeneratelabel/letter_addressee');
         $addressee->setAddresseeParcelRef();
         $addressee->setCodeBarForReference(0);
         $addressee->setServiceInfo();
+
+        $mobilePhoneNumber = ($this->_getValidMobilePhoneNumber(Mage::getStoreConfig('general/laposte_returnlabel/phone_number'))) ? Mage::getStoreConfig('general/laposte_returnlabel/phone_number') : '';
+
         $addressee->setAddress(
             array(
                 'companyName'       => Mage::getStoreConfig('general/laposte_returnlabel/compagny_name'),
@@ -165,7 +174,7 @@ class PH2M_PhLaposteGenerateLabel_Helper_Data extends Mage_Core_Helper_Abstract 
                 'city'              => Mage::getStoreConfig('general/laposte_returnlabel/city'),
                 'zipCode'           => Mage::getStoreConfig('general/laposte_returnlabel/zip_code'),
                 'phoneNumber'       => Mage::getStoreConfig('general/laposte_returnlabel/phone_number'),
-                'mobileNumber'      => Mage::getStoreConfig('general/laposte_returnlabel/phone_number'),
+                'mobileNumber'      => $mobilePhoneNumber,
                 'doorCode1'         => '',
                 'doorCode2'         => '',
                 'email'             => Mage::getStoreConfig('general/laposte_returnlabel/email'),
@@ -183,6 +192,17 @@ class PH2M_PhLaposteGenerateLabel_Helper_Data extends Mage_Core_Helper_Abstract 
         return $letter;
     }
 
+    /**
+     * Check if the param phone number is a valid mobile phone number
+     * If not, return a fake one
+     *
+     * @param $phoneNumber
+     * @return int
+     */
+    protected function _getValidMobilePhoneNumber($phoneNumber)
+    {
+        return preg_match('/^0[6-7]{1}([ \.-]?[0-9]{2}){4}$/', $phoneNumber);
+    }
 
     /**
      *
@@ -263,6 +283,10 @@ class PH2M_PhLaposteGenerateLabel_Helper_Data extends Mage_Core_Helper_Abstract 
 
     public function getDownloadManualControllerUrl() {
         return Mage::getUrl('lapostegeneratelabel/printlabelpdf/downloadmanual/');
+    }
+
+    public function getReturnForExchangeControllerUrl() {
+        return Mage::getUrl('lapostegeneratelabel/printlabelpdf/exchange/');
     }
 
     /**

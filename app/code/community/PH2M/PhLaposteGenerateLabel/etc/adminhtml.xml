@@ -1,0 +1,29 @@
+<config>
+    <menu>
+        <customer>
+            <children>
+                <lapostegeneratelabel translate="title" module="lapostegeneratelabel">
+                    <title>Laposte Generate Label</title>
+                    <sort_order>15</sort_order>
+                    <action>adminhtml/lapostegeneratelabel</action>
+                </lapostegeneratelabel>
+            </children>
+        </customer>
+    </menu>
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <customer>
+                        <children>
+                            <lapostegeneratelabel translate="title" module="lapostegeneratelabel">
+                                <title>Laposte Generate Label</title>
+                                <sort_order>15</sort_order>
+                            </lapostegeneratelabel>
+                        </children>
+                    </customer>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>
