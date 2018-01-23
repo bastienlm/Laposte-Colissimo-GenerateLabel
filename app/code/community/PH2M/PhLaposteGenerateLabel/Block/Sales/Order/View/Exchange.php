@@ -11,15 +11,15 @@
  *
  * @category   LaposteGenerateLabel
  * @copyright  Copyright (c) 2017 PH2M SARL
- * @author     PH2M | Bastien Lamamy (bastienlm) bastien-lamamy.com/
+ * @author     PH2M | Bastien Lamamy (bastienlm)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
-class PH2M_PhLaposteGenerateLabel_Block_Sales_Order_View extends Mage_Core_Block_Template {
+class PH2M_PhLaposteGenerateLabel_Block_Sales_Order_View_Exchange extends Mage_Core_Block_Template {
 
     /**
-     * Return all order complete in FR
+     * Return all order complete
      *
      * @return Mage_Core_Model_Resource_Db_Collection_Abstract
      */

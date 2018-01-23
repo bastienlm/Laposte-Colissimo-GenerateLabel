@@ -2,29 +2,50 @@
 <config>
     <modules>
         <PH2M_PhLaposteGenerateLabel>
-            <version>1.0.0</version>
+            <version>1.0.1</version>
         </PH2M_PhLaposteGenerateLabel>
     </modules>
     <global>
         <helpers>
             <lapostegeneratelabel>
-                <class>
-                    PH2M_PhLaposteGenerateLabel_Helper
-                </class>
+                <class>PH2M_PhLaposteGenerateLabel_Helper</class>
             </lapostegeneratelabel>
         </helpers>
         <blocks>
-            <lapostegeneratelabel>
+            <phlapostegeneratelabel>
                 <class>
                     PH2M_PhLaposteGenerateLabel_Block
                 </class>
-            </lapostegeneratelabel>
+            </phlapostegeneratelabel>
         </blocks>
         <models>
-            <lapostegeneratelabel>
+            <phlapostegeneratelabel>
                 <class>PH2M_PhLaposteGenerateLabel_Model</class>
-            </lapostegeneratelabel>
+                <resourceModel>phlapostegeneratelabel_resource</resourceModel>
+            </phlapostegeneratelabel>
+            <phlapostegeneratelabel_resource>
+                <class>PH2M_PhLaposteGenerateLabel_Model_Resource</class>
+                <entities>
+                    <lapostegeneratelabel>
+                        <table>phlapostegeneratelabel_lapostegeneratelabel</table>
+                    </lapostegeneratelabel>
+                    <lapostegeneratelabel_store>
+                        <table>phlapostegeneratelabel_lapostegeneratelabel_store</table>
+                    </lapostegeneratelabel_store>
+                </entities>
+            </phlapostegeneratelabel_resource>
         </models>
+        <resources>
+            <phlapostegeneratelabel_setup>
+                <setup>
+                    <module>PH2M_PhLaposteGenerateLabel</module>
+                    <class>PH2M_PhLaposteGenerateLabel_Model_Resource_Setup</class>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </phlapostegeneratelabel_setup>
+        </resources>
     </global>
     <frontend>
         <routers>
@@ -32,7 +53,7 @@
                 <use>standard</use>
                 <args>
                     <module>PH2M_PhLaposteGenerateLabel</module>
-                    <frontName>phlaposte</frontName>
+                    <frontName>lapostegeneratelabel</frontName>
                 </args>
             </lapostegeneratelabel>
         </routers>
@@ -53,4 +74,41 @@
             </modules>
         </translate>
     </frontend>
+    <adminhtml>
+        <translate>
+            <modules>
+                <PH2M_PhLaposteGenerateLabel>
+                    <files>
+                        <default>PH2M_PhLaposteGenerateLabel.csv</default>
+                    </files>
+                </PH2M_PhLaposteGenerateLabel>
+            </modules>
+        </translate>
+        <layout>
+            <updates>
+                <lapostegeneratelabel module="lapostegeneratelabel">
+                    <file>ph/lapostegeneratelabel.xml</file>
+                </lapostegeneratelabel>
+            </updates>
+        </layout>
+    </adminhtml>
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <PH2M_PhLaposteGenerateLabel before="Mage_Adminhtml">PH2M_PhLaposteGenerateLabel_Adminhtml</PH2M_PhLaposteGenerateLabel>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+    <default>
+        <general>
+            <laposte_returnlabel>
+                <enabled>0</enabled>
+                <country_available>FR,DE,AT,BE,ES,FI,FR,IE,IT,LU,NL,PL,CZ,GB,SK,SI</country_available>
+            </laposte_returnlabel>
+        </general>
+    </default>
 </config>

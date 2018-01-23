@@ -2,22 +2,49 @@
 <layout>
     <lapostegeneratelabel_printlabelpdf_view>
         <label>Print label page</label>
+        <update handle="customer_account"/>
         <reference name="root">
-            <action method="setTemplate">
-                <template>page/1column.phtml</template>
+            <action method="setHeaderTitle" translate="title" module="customer"><title>Print label page</title></action>
+        </reference>
+        <reference name="my.account.wrapper">
+            <block type="core/template" name="content_view" as="content_view"  template="ph/laposte-generatelabel/view.phtml" />
+        </reference>
+        <reference name="head">
+            <action method="setTitle" translate="title"><title>Download your label</title></action>
+        </reference>
+        <reference name="left">
+            <action method="unsetChild"><name>left.permanent.callout</name></action>
+        </reference>
+    </lapostegeneratelabel_printlabelpdf_view>
+    <customer_account>
+        <reference name="customer_account_navigation">
+            <action method="addLink" translate="label" module="lapostegeneratelabel" ifconfig="general/laposte_returnlabel/enabled">
+                <name>product_return</name>
+                <path>lapostegeneratelabel/printlabelpdf/view</path>
+                <label>Return product</label>
             </action>
         </reference>
-        <reference name="content">
-            <block name="contet_view" as="content_view" type="core/template" template="ph/laposte-generatelabel/view.phtml">
-                <block name="cms_describe" as="cms_describe" type="cms/block">
-                    <action method="setBlockId"><block_id>laposte_generatelabel_describe</block_id></action>
+    </customer_account>
+    <lapostegeneratelabel_printlabelpdf_exchange>
+        <label>Exchange page</label>
+        <update handle="customer_account"/>
+        <reference name="root">
+            <action method="setHeaderTitle" translate="title" module="customer"><title>Exchange page</title></action>
+        </reference>
+        <reference name="my.account.wrapper">
+            <block type="phlapostegeneratelabel/sales_order_view_exchange" name="content_view" as="content_view" template="ph/laposte-generatelabel/view/generate.phtml">
+                <block name="cms_describe_first_method" as="cms_describe_first_method" type="cms/block">
+                    <action method="setBlockId">
+                        <block_id>laposte_generatelabel_describe</block_id>
+                    </action>
                 </block>
             </block>
         </reference>
-    </lapostegeneratelabel_printlabelpdf_view>
-    <sales_order_view>
-        <reference name="my.account.wrapper">
-            <block name="generate_label_button" as="generate_label_button" type="lapostegeneratelabel/sales_order_view" template="ph/laposte-generatelabel/button.phtml" />
+        <reference name="head">
+            <action method="setTitle" translate="title"><title>Exchange your products</title></action>
         </reference>
-    </sales_order_view>
+        <reference name="left">
+            <action method="unsetChild"><name>left.permanent.callout</name></action>
+        </reference>
+    </lapostegeneratelabel_printlabelpdf_exchange>
 </layout>

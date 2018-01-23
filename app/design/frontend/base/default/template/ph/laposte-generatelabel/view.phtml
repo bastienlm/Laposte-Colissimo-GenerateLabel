@@ -1,7 +1,19 @@
-<?php echo $this->getChildHtml('cms_describe'); ?>
-
 <div class="dl-button">
-    <a href="<?php echo $this->helper('lapostegeneratelabel')->getDownloadControllerUrl() . 'order/' . Mage::registry('order_id') ?>" class="btn"><?php echo $this->__('Download label') ?></a>
-    <p><?php echo '(' . $this->__('pdf format') . ')'; ?></p>
-
+        <a href="<?php echo $this->helper('lapostegeneratelabel')->getReturnForExchangeControllerUrl() ?>">
+            <button class="button">
+                <span>
+                    <span><?php echo $this->__('Return for exchange') ?></span>
+                </span>
+            </button>
+        </a>
 </div>
+<div class="manual-download">
+    <a href="<?php echo $this->helper('lapostegeneratelabel')->getDownloadManualControllerUrl() ?>" target="_blank">
+        <button class="button">
+                <span>
+                    <span><?php echo $this->__('Return for refund') ?></span>
+                </span>
+        </button>
+    </a>
+</div>
+

@@ -4,12 +4,21 @@
         <general>
             <groups>
                 <laposte_returnlabel translate="label">
-                    <label>Management of Laposte generate label for return product</label>
+                    <label>La Poste generate label for RMA</label>
                     <sort_order>100</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
                     <show_in_store>1</show_in_store>
                     <fields>
+                        <enabled translate="label">
+                            <label>Enabled</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </enabled>
                         <contract_number translate="label">
                             <label>Contract Number</label>
                             <frontend_type>text</frontend_type>
@@ -90,8 +99,9 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </zip_code>
-                        <phone_number translate="label">
+                        <phone_number translate="label comment">
                             <label>Phone number</label>
+                            <comment>Must be a mobile phone number!</comment>
                             <frontend_type>text</frontend_type>
                             <sort_order>90</sort_order>
                             <show_in_default>1</show_in_default>
@@ -99,13 +109,22 @@
                             <show_in_store>1</show_in_store>
                         </phone_number>
                         <email translate="label">
-                            <label>Email</label>
+                            <label>Email address</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>100</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </email>
+                        <country_available translate="label">
+                            <label>Country available</label>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>adminhtml/system_config_source_country</source_model>
+                            <sort_order>110</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </country_available>
                     </fields>
                 </laposte_returnlabel>
             </groups>
